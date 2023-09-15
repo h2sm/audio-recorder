@@ -119,7 +119,7 @@ public class AudioRecorderPlayerApp {
                              ByteBuffer.wrap(buffer, 0, bytesRead).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shortBuffer);
 
                             for (int i = 0; i < shortBuffer.length; i++) {
-                                audioDataSeries.add(i, shortBuffer[i]);
+                                if (shortBuffer[i] >0) audioDataSeries.add(i, shortBuffer[i]);
                             }
 
                             ByteBuffer byteBuffer = ByteBuffer.allocate(bytesRead);
@@ -189,7 +189,7 @@ public class AudioRecorderPlayerApp {
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Частотный график аудиосигнала",
                 "Время",
-                "Амплитуда",
+                "Частота",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
@@ -227,8 +227,8 @@ public class AudioRecorderPlayerApp {
         XYSeriesCollection dataset = new XYSeriesCollection(spectrumDataSeries);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Спектр аудиосигнала",
-                "Частота (Гц)",
-                "Амплитуда",
+                "Время",
+                "Частота",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
